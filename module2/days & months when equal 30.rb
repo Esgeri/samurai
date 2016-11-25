@@ -16,6 +16,5 @@ year = {
 day = 30
 
 year.each do |key, value|
-	# puts key, value
-	puts "The months of the year, when the days equals to 30: #{key} - #{value} " if day == value
+	puts "The months of the year, when the day equals to 30: #{key} - #{value} " if day == value
 end

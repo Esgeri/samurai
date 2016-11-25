@@ -16,8 +16,8 @@ date_number = 0
 counter = 0
 
 while counter < month
-	date_number += months[counter]
-	counter += 1
+  date_number += months[counter]
+  counter += 1
 end
 
 date_number += day

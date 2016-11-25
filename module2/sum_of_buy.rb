@@ -1,23 +1,22 @@
-goods = Hash.new
+goods = {}
 
 loop do
-	puts "Enter name of good: (or enter word: /'stop/' to stop iteration!)"
-	name = gets.chomp.to_s
+  puts "Enter name of good: (or enter word: /'stop/' to stop iteration!)"
+  name = gets.chomp.to_s
 
-	break puts "*"*65 if name == "stop"
+  break puts "*"*65 if name == "stop"
 
+  puts "Enter price:"
+  price = gets.to_f
 
-	puts "Enter price:"
-	price = gets.to_i
+  puts "Enter count of good:"
+  count = gets.to_i
+  puts "*"*65
 
-	puts "Enter count of good:"
-	count = gets.to_i
-	puts "*"*65
-
-	goods[name] = {
-		:price => price, 
-		:count => count
-	}
+  goods[name] = {
+  	:price => price, 
+	:count => count
+  }
 
 end
 
