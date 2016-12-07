@@ -12,8 +12,6 @@ moscow_train = Train.new(123, "cargo", 18)
 bishkek_train = Train.new(312, "passenger", 25)
 minsk_train = Train.new(444, "cargo", 15)
 
-# bishkek_moscow_route = Route.new('bishkek_vokzal', 'moscow_vokzal')
-# moscow_kiev_route = Route.new('moscow_vokzal', 'kiev_vokzal')
 bishkek_moscow_route = Route.new(bishkek, moscow)
 moscow_kiev_route = Route.new(moscow, kiev)
 
@@ -26,13 +24,17 @@ moscow.arrive_train(minsk_train)
 puts
 moscow.show_all_trains
 puts
-moscow.count_train_by_type
+puts "#{moscow.station_name} station has: #{moscow.trains.size} trains."
+puts "Cargo: #{moscow.count_train_by_type("cargo")}"
+puts "Passanger trains: #{moscow.count_train_by_type("passenger")}"
 puts
 moscow.dispatch_train(minsk_train)
 puts
 moscow.show_all_trains
 puts
-moscow.count_train_by_type
+puts "#{moscow.station_name} station has: #{moscow.trains.size} trains."
+puts "Cargo: #{moscow.count_train_by_type("cargo")}"
+puts "Passanger trains: #{moscow.count_train_by_type("passenger")}"
 puts
 puts "="*100
 

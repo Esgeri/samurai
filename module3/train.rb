@@ -17,7 +17,6 @@
 
 class Train
 	
-  # attr_reader :number, :type
   attr_accessor :number, :type, :wagoons, :speed, :current_speed, :current_station, :route 
 
   def initialize(number, type, wagoons)
@@ -51,7 +50,7 @@ class Train
   end
 
   def detach_wagoons
-  	@wagoons -= 1 if @speed == 0
+  	@wagoons -= 1 if @speed == 0 && @wagoons > 0
   	puts "Train #{@number} has detaching wagoon, now has #{@wagoons} wagoons."
   end
 
@@ -68,25 +67,18 @@ class Train
   	puts "Train #{self.number} move to previous station: #{@route.stations[@current_station].station_name}" if @current_station -= 1
   end
 
-  # def show_routes
-  # 	puts "All train routes: #{@route.stations}"
-  # 	puts @route
-  # end
-
   def current_station
   	puts "The current station: #{@route.stations[@current_station].station_name}" unless @route.nil?
   end
 
   def next_station
   	next_station = @current_station + 1
-  	puts "The next station: #{@route.stations[next_station].station_name}" #if @current_station += 1
-  	# puts "The next station: #{@route.stations[@current_station]}" if @current_station += 1
+  	puts "The next station: #{@route.stations[next_station].station_name}"
   end
 
   def previous_station
   	previous_station = @current_station - 1
-  	puts "The previous station: #{@route.stations[previous_station].station_name}" #if @current_station -= 1
-  	# puts "The previous station: #{@route.stations[@current_station]}" if @current_station -= 1
+  	puts "The previous station: #{@route.stations[previous_station].station_name}"
   end
 
 end

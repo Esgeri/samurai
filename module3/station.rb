@@ -35,10 +35,9 @@ class Station
     end
   end
 
-  def count_train_by_type
-  	puts "General count of trains on the station is: #{@trains.size}"
-  	puts "Passanger trains: #{ @trains.select{|train| train.type == "passenger"}.size }"
-  	puts "Cargo trains: #{ @trains.select{|train| train.type == "cargo"}.size }"
+  def count_train_by_type(train_type)
+  	@trains.select{|train| train.type == train_type}.size
+  	@trains.select{|train| train.type == train_type}.size
   end
 
   def dispatch_train(train)

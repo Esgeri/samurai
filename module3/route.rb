@@ -16,11 +16,8 @@ class Route
   end
 
   def add_station(transitional_point)
-  	if @stations << transitional_point
-  	  puts "New station #{transitional_point.station_name} was added!"
-  	else
-  	  puts "New station no added!"
-  	end
+  	@stations << transitional_point
+  	puts "New station #{transitional_point.station_name} was added!"
   end
 
   def destroy_station(deleting_station)
@@ -35,6 +32,5 @@ class Route
   def show_all_route_stations
   	puts "All stations on the routes: "
   	@stations.each { |station| puts station.station_name }
-  	# puts "All stations on the routes #{@stations.station_name}"
   end
 end
