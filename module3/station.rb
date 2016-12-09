@@ -37,7 +37,6 @@ class Station
 
   def count_train_by_type(train_type)
   	@trains.select{|train| train.type == train_type}.size
-  	@trains.select{|train| train.type == train_type}.size
   end
 
   def dispatch_train(train)

@@ -16,7 +16,7 @@ class Route
   end
 
   def add_station(transitional_point)
-  	@stations << transitional_point
+  	@stations.insert(-2, transitional_point)
   	puts "New station #{transitional_point.station_name} was added!"
   end
 
