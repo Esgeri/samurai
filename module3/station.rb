@@ -45,7 +45,7 @@ class Station
       @trains.delete(train)
     else
   	  puts "The train #{train.number} is not located on the station #{@station_name}."
-  	end
+    end
   end
 
 end
