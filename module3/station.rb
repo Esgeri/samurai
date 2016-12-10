@@ -18,16 +18,16 @@ class Station
   end
 
   def arrive_train(train)
-  	if @trains.include? train
+    if @trains.include? train
   	  puts "This #{train.number} is already located on the station."
-  	else
+    else
       @trains << train
       puts "Train #{train.number} arrived to #{@station_name} station."
     end
   end
 
   def show_all_trains
-  	if @trains.empty?
+    if @trains.empty?
       puts "No one train on the station: #{@station_name}."
     else
       puts "List of trains on station #{@station_name} at current moment:"
@@ -36,7 +36,7 @@ class Station
   end
 
   def count_train_by_type(train_type)
-  	@trains.select{|train| train.type == train_type}.size
+    @trains.select{|train| train.type == train_type}.size
   end
 
   def dispatch_train(train)
