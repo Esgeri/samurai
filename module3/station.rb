@@ -19,7 +19,7 @@ class Station
 
   def arrive_train(train)
     if @trains.include? train
-  	  puts "This #{train.number} is already located on the station."
+      puts "This #{train.number} is already located on the station."
     else
       @trains << train
       puts "Train #{train.number} arrived to #{@station_name} station."
@@ -44,7 +44,7 @@ class Station
       puts "The train #{train.number} is dispatching...."
       @trains.delete(train)
     else
-  	  puts "The train #{train.number} is not located on the station #{@station_name}."
+      puts "The train #{train.number} is not located on the station #{@station_name}."
     end
   end
 
