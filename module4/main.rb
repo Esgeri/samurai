@@ -8,13 +8,12 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 
 class Main
-
   attr_accessor :stations, :trains, :wagoons, :route, :routes, :current_station
   attr_reader :current_train
-
+  
   def initialize
-  	@stations = []
-  	@trains = []
+    @stations = []
+    @trains = []
     @wagoons = []
     @route = ''
     @routes = []
@@ -23,8 +22,7 @@ class Main
   end
 
   def run
-  	
-  	loop do 
+    loop do 
       puts
       puts "__________________MENU__________________"
       puts "\'q\' - enter to quit the programm"
@@ -47,12 +45,12 @@ class Main
       puts "8 - locate at station to start from route"
       puts "9 - add wagoon"
       puts "10 - delete wagoon"
-
-  		user_input = STDIN.gets.encode('UTF-8').chomp
+      
+      user_input = STDIN.gets.encode('UTF-8').chomp
       puts
-
-  		case user_input
-  		when '1' 
+      
+      case user_input
+      when '1' 
         create_station
       when '2'
         create_train
@@ -77,9 +75,7 @@ class Main
       else
         puts "Try again!"
       end
-
     end
-
   end
 
 # ниже следуют приватные методы, они приватны, так, как не будут вызываться в других файлах приложения.
@@ -250,6 +246,5 @@ private
     number = STDIN.gets.encode('UTF-8').to_i
     @current_train = @trains.find { |train| train.number == number }
     @current_train.detach_wagoons
-  end
-  
+  end 
 end
