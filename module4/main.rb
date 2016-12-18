@@ -82,6 +82,9 @@ class Main
 
   end
 
+# ниже следуют приватные методы, они приватны, так, как не будут вызываться в других файлах приложения.
+# поэтому должны быть скрытыми
+private
   # section I
   def create_station
     puts "Create station. Input name:"
@@ -158,7 +161,7 @@ class Main
       puts "No one train!"
     else
       puts "List of trains:"
-      @trains.each { |train| puts "#{train.number} - #{train.type}" }
+      @trains.each { |train| puts "Number:#{train.number} - type:#{train.type}" }
     end
   end
 
@@ -191,7 +194,7 @@ class Main
     if @trains.count > 0
       index = 0
       @trains.each do |train|
-        index += 1
+        index +=1
         puts "Train index: #{index} - train number: #{train.number} - type: #{train.type}"
       end
 
@@ -212,16 +215,28 @@ class Main
           end
         end
       end
+    else
+      puts "No any train!"
     end
   end
  
   def add_wagoon
-    puts "What train would you like hook wagoon? Input train number:"
+    puts "What train would you like hook wagoon?"
+    if @trains.count > 0
+      index = 0
+      @trains.each do |train|
+        index +=1
+        puts "Train number: #{train.number} - train type: #{train.type}"
+      end
+    end
+
+    puts "Input train number:"
     number = STDIN.gets.encode('UTF-8').to_i
     puts "Input train type:"
     type = STDIN.gets.encode('UTF-8').chomp
 
     @current_train = @trains.find { |train| train.number == number }
+    # проверка на тип вагона, что грузовые поезда могут подсоединять только грузовые вагоны
     if @current_train.type == 'cargo'
       wagoon = Cargo_wagoon.new
     elsif @current_train.type == 'passenger'

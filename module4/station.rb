@@ -1,5 +1,4 @@
 class Station
-  
   attr_accessor :station_name, :trains
 
   def initialize(station_name)
@@ -37,5 +36,4 @@ class Station
       puts "The train #{train.number} is not located on the station #{@station_name}."
     end
   end
-
 end

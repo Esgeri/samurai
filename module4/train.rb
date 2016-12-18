@@ -1,5 +1,4 @@
-class Train
-	
+class Train	
   attr_accessor :number, :type, :wagoons, :speed, :current_station, :route
 
   def initialize(number, type)
@@ -30,7 +29,7 @@ class Train
   def hook_wagoons(wagoon)
     if @speed == 0
       @wagoons << wagoon
-      puts "Train #{@number} has #{@wagoons.count} wagoons."
+      puts "Train #{@number} has #{@wagoons.count} wagoons by type: #{wagoon.type}."
     end
   end
 
@@ -65,5 +64,4 @@ class Train
     previous_station = @current_station - 1
     puts "The previous station: #{@route.stations[previous_station].station_name}"
   end
-
 end
