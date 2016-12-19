@@ -8,18 +8,18 @@ class Station
 
   def arrive_train(train)
     if @trains.include? train
-      puts "This #{train.number} is already located on the station."
+      puts "Поезд с номером: #{train.number} уже находиться в этой станции."
     else
       @trains << train
-      puts "Train #{train.number} arrived to #{@station_name} station."
+      puts "Поезд с номером: #{train.number} размещен на станцию: #{@station_name}."
     end
   end
 
   def show_all_trains
     if @trains.empty?
-      puts "No one train on the station: #{@station_name}."
+      puts "Нет ни одного поезда на станции: #{@station_name}."
     else
-      puts "List of trains on station #{@station_name} at current moment:"
+      puts "Список поездов на станции: #{@station_name} на текущий момент."
       @trains.each { |train| puts train.number }
     end
   end
@@ -29,11 +29,11 @@ class Station
   end
 
   def dispatch_train(train)
-    if @trains.include? train 
-      puts "The train #{train.number} is dispatching...."
+    if @trains.include? train
+      puts "Поезд с номером: #{train.number} отбывает со станции #{@station.station_name}."
       @trains.delete(train)
     else
-      puts "The train #{train.number} is not located on the station #{@station_name}."
+      puts "Поезд с номером: #{train.number} не распологается на станции: #{@station_name}."
     end
   end
 end

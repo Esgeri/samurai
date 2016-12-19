@@ -7,20 +7,20 @@ class Route
 
   def add_station(transitional_point)
     @stations.insert(-2, transitional_point)
-    puts "New station was added to route!"
+    puts "Промежуточная станция была добавлена на маршрут!"
   end
 
   def destroy_station(deleting_station)
     if @stations.include? deleting_station
-      puts "The station #{deleting_station.station_name} is deleting from route."
+      puts "Станция: #{deleting_station.station_name} убран с маршрута."
       @stations.delete(deleting_station)
     else
-      puts "The station #{deleting_station.station_name} is not found!"
+      puts "Станция: #{deleting_station.station_name} не найдена! Она вне этого маршрута!"
     end
   end
 
   def show_all_route_stations
-    puts "All stations on the routes: "
+    puts "Все станции маршрута:"
     @stations.each { |station| puts station.station_name }
   end
 end

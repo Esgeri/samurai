@@ -10,7 +10,7 @@ require_relative 'cargo_train'
 class Main
   attr_accessor :stations, :trains, :wagoons, :route, :routes, :current_station
   attr_reader :current_train
-  
+
   def initialize
     @stations = []
     @trains = []
@@ -22,58 +22,58 @@ class Main
   end
 
   def run
-    loop do 
+    loop do
       puts
       puts "__________________MENU__________________"
-      puts "\'q\' - enter to quit the programm"
+      puts "Нажмите на букву: \'q\' - чтобы выйти из приложения."
       puts
-      puts "I. Section: Create."
-      puts "Input to console:"
-      puts "1 - create station"
-      puts "2 - create train"
-      puts "3 - create route"
-      puts  
-      puts "II. Section: Print lists."
-      puts "Input to console:"
-      puts "4 - print stations"
-      puts "5 - print trains"
-      puts "6 - print trains at station"
-      puts "7 - print routes (start point, end point)"
-      puts  
-      puts "III. Section: Train location & manupulate."
-      puts "Input to console:"
-      puts "8 - locate at station to start from route"
-      puts "9 - add wagoon"
-      puts "10 - delete wagoon"
-      
+      puts "I. Секция: Создать."
+      puts "Введите в консоль:"
+      puts "1 - чтобы создать станцию."
+      puts "2 - чтобы создать поезд."
+      puts "3 - чтобы создать маршрут (начальные и конечные станции маршрута)."
+      puts
+      puts "II. Секция. Показать списки."
+      puts "Введите в консоль:"
+      puts "4 - показть станции."
+      puts "5 - показать поезда."
+      puts "6 - показть поезда на станциях."
+      puts "7 - показать маршруты (с начальными и конечными станциями)."
+      puts
+      puts "III. Секция. Нахождения поездов и манипуляции ими."
+      puts "Введите в консоль:"
+      puts "8 - распложить на станции, чтобы начать маршрут."
+      puts "9 - прицепить вагон."
+      puts "10 - отцепить вагон."
+
       user_input = STDIN.gets.encode('UTF-8').chomp
       puts
-      
+
       case user_input
-      when '1' 
+      when '1'
         create_station
       when '2'
         create_train
-      when '3' 
+      when '3'
         create_route
-      when '4' 
+      when '4'
         print_stations
-      when '5' 
+      when '5'
         print_trains
-      when '6' 
+      when '6'
         print_trains_at_station
-      when '7' 
-        print_routes 
-      when '8' 
-        locate_train 
+      when '7'
+        print_routes
+      when '8'
+        locate_train
       when '9'
         add_wagoon
       when '10'
         delete_wagoon
-      when 'q' 
-        break puts "You are quit from programm!"
+      when 'q'
+        break puts "Вы вышли из приложения!"
       else
-        puts "Try again!"
+        puts "Попытайтесь еще раз!"
       end
     end
   end
@@ -83,94 +83,103 @@ class Main
 private
   # section I
   def create_station
-    puts "Create station. Input name:"
+    puts "Создайте станцию."
+    puts "Введите название:"
     station_name = STDIN.gets.encode('UTF-8').chomp
     if @stations.push Station.new(station_name)
-      puts "The station was create!"
+      puts "Станция создана!"
       return station_name
     else
-      puts "Station no create!"
+      puts "Станция не создана!"
     end
   end
 
   def create_train
-    puts "Create train. Input number:"
+    puts "Создайте поезд."
+    puts "Введите номер, только цифры:"
     number = STDIN.gets.encode('UTF-8').to_i
-    puts "Input type of train: cargo or passenger"
-    type = STDIN.gets.encode('UTF-8').chomp
-    if type == 'cargo'
+    puts "Введите тип поезда."
+    puts "Надо ввести индекс типа:"
+    puts "1 - cargo"
+    puts "2 - passenger"
+
+    user_input = STDIN.gets.encode('UTF-8').to_i
+
+    if user_input == 1
+      type = 'cargo'
       @trains.push Cargo.new(number, type)
-      puts "Train cargo was created!"
-    elsif type == 'passenger'
+      puts "Поезд типа cargo создана!"
+    elsif user_input == 2
+      type = 'passenger'
       @trains.push Passenger.new(number, type)
-      puts "Train passenger was created!"
+      puts "Поезд типа passenger созадана!"
     else
-      puts "Train no create!"
-    end          
+      puts "Поезд не создан!"
+    end
   end
 
   def create_route
     if @stations.count > 1
-      puts "Create route. Choose station for start point:"
+      puts "Создайте маршрут. Выберите станцию для начальной точки отправки поезда:"
       index = 0
       @stations.each do |station|
         index +=1
-        puts "Station index: #{index} - name: #{station.station_name}"
-        puts "Not enough stations to add route!" if @stations.count == 1
+        puts "Индекс станции: #{index} - название станции: #{station.station_name}"
+        puts "Не достаточно станции для создания маршрута!" if @stations.count == 1
       end
-      puts "Input station index:"
+      puts "Введите индекс станции:"
       start_index = STDIN.gets.encode('UTF-8').to_i
 
-      puts "Create route. Choose station for end point:"
+      puts "Создайте маршрут. Выберите станцию для конечной точки прибытия:"
       index = 0
       @stations.each do |station|
         index +=1
-        puts "Station index: #{index} - name: #{station.station_name}"
+        puts "Индекс станции: #{index} - название станции: #{station.station_name}"
       end
-      puts "Input next station index:"
+      puts "Введите индекс следующей станции:"
       end_index = STDIN.gets.encode('UTF-8').to_i
 
       start_point = @stations[start_index-1]
       end_point = @stations[end_index-1]
 
       @route = Route.new(start_point, end_point)
-      puts "Was created routes: start - #{@route.stations[0].station_name} : end - #{@route.stations[1].station_name}."
+      puts "Создан маршрут:: начало станция - #{@route.stations[0].station_name} : конечная станция - #{@route.stations[1].station_name}."
       @route.show_all_route_stations
       @routes.push(@route)
     else
-      puts "You must create stations to add route!" if @stations.count == 1
+      puts "Вы должны создать станции, чтобы добавить в маршрут! Чтобы у маршрута было начальная и конечная станция." if @stations.count == 1
     end
   end
 
   # section II
   def print_stations
-    if @stations.empty? 
-      puts "No one station!"
+    if @stations.empty?
+      puts "Нет ни одной станции!"
     else
-      puts "List of stations:"
+      puts "Список станций:"
       @stations.each { |station| puts station.station_name }
     end
   end
 
   def print_trains
     if @trains.empty?
-      puts "No one train!"
+      puts "Нет ни одного поезда!"
     else
-      puts "List of trains:"
-      @trains.each { |train| puts "Number:#{train.number} - type:#{train.type}" }
+      puts "Список поездов:"
+      @trains.each { |train| puts "Номер поезда: #{train.number} - тип: #{train.type}" }
     end
   end
 
   def print_trains_at_station
     if @stations.count > 0
-      puts "Choose station to see it is trains:"
+      puts "Выберите станцию, чтобы увидеть находящиеся в нем поезда:"
       index = 0
       @stations.each do |station|
         index += 1
-        puts "Station index: #{index} - name: #{station.station_name}"
+        puts "Индекс станции: #{index} - название: #{station.station_name}"
       end
-      
-      puts "Input station index:"
+
+      puts "Введите индекс станции:"
       station_index = STDIN.gets.encode('UTF-8').to_i
 
       @stations[station_index-1].show_all_trains
@@ -178,8 +187,8 @@ private
   end
 
   def print_routes
-    if @routes.empty? 
-      puts "No one route!"
+    if @routes.empty?
+      puts "Нет ни одного маршрута!"
     else
       @routes.each { |route| route.show_all_route_stations}
     end
@@ -191,60 +200,63 @@ private
       index = 0
       @trains.each do |train|
         index +=1
-        puts "Train index: #{index} - train number: #{train.number} - type: #{train.type}"
+        puts "Индекс поезда: #{index} - Номер поезда: #{train.number} - Тип поезда: #{train.type}"
       end
 
-      puts "Input index:"
+      puts "Введите индекс:"
       index_number = STDIN.gets.encode('UTF-8').to_i
 
-      if index_number <= @trains.count 
-        if @stations.count > 0 
-          puts "Input station name to locate current train"
+      if index_number <= @trains.count
+        if @stations.count > 0
+          puts "Введите индекс станции, чтобы разместить в нем текущий поезд, которого выбрали."
           index = 0
           @stations.each do |station|
             index +=1
-            puts "Station index: #{index} - name: #{station.station_name}"
+            puts "Индекс станции: #{index} - название станции: #{station.station_name}"
           end
           index_station = STDIN.gets.encode('UTF-8').to_i
-          if index_station <= @stations.count 
+          if index_station <= @stations.count
             @stations[index_station-1].arrive_train(@trains[index_number-1])
           end
         end
       end
     else
-      puts "No any train!"
+      puts "Нет ни одного поезда!"
     end
   end
- 
+
   def add_wagoon
-    puts "What train would you like hook wagoon?"
+    puts "Какому поезду вы бы хотели прицепить вагон?"
     if @trains.count > 0
       index = 0
       @trains.each do |train|
         index +=1
-        puts "Train number: #{train.number} - train type: #{train.type}"
+        puts "Поезд с номером: #{train.number} - тип поезда: #{train.type}"
       end
     end
 
-    puts "Input train number:"
+    puts "Введите номер поезда, только цифры:"
     number = STDIN.gets.encode('UTF-8').to_i
-    puts "Input train type:"
-    type = STDIN.gets.encode('UTF-8').chomp
+
+    puts "Введите тип поезда:"
+    puts "1 - cargo"
+    puts "2 - passenger"
+    user_input = STDIN.gets.encode('UTF-8').to_i
 
     @current_train = @trains.find { |train| train.number == number }
-    # проверка на тип вагона, что грузовые поезда могут подсоединять только грузовые вагоны
-    if @current_train.type == 'cargo'
+    if user_input == 1
       wagoon = Cargo_wagoon.new
-    elsif @current_train.type == 'passenger'
+    elsif user_input == 2
       wagoon = Passenger_wagoon.new
     end
     @current_train.hook_wagoons(wagoon)
   end
 
   def delete_wagoon
-    puts "Input train number:"
+    puts "Введите номер поезда, только цифры:"
+    print_trains
     number = STDIN.gets.encode('UTF-8').to_i
     @current_train = @trains.find { |train| train.number == number }
     @current_train.detach_wagoons
-  end 
+  end
 end
