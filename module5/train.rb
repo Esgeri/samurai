@@ -1,7 +1,7 @@
 class Train
-  include ManufacturerName
+  include Manufacturer
   attr_accessor :number, :type, :wagoons, :speed, :current_station, :route
-  @@trains = []
+  @@trains = {}
 
   def initialize(number, type)
     @number = number
@@ -9,11 +9,12 @@ class Train
     @wagoons = []
     @speed = 0.0
     @current_station = 0
+    @@trains[number] = self
   end
 
-  def find(number)
+  def self.find(train)
     puts "Найденный поезд:"
-    @@trains[number]
+    puts @@trains[train.number]
   end
 
   def stopped!

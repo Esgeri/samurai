@@ -10,7 +10,6 @@ class Station
   end
 
   def self.all
-    puts "Все станции, которые созданны на данный момент."
     @@stations
   end
 

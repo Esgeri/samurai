@@ -1,3 +1,5 @@
+require_relative 'modules/instance_counter'
+require_relative 'modules/manufacturer'
 require_relative 'station'
 require_relative 'route'
 require_relative 'train'
@@ -45,6 +47,17 @@ class Main
       puts "8 - распложить на станции, чтобы начать маршрут."
       puts "9 - прицепить вагон."
       puts "10 - отцепить вагон."
+      # puts "11 - показать следующую станцию на маршруте."
+      # puts "12 - показать предыдущую станцию на маршруте."
+      # puts "13 - удалить станцию из маршрута."
+      puts
+      puts "IV. Секция. О информация о производителе поездов."
+      puts "Введите в консоль:"
+      puts "11 - присвоить имя производителя к поездам."
+      puts "12 - найти инстанс поезд."
+      puts "13 - все инстанс станции."
+      puts "14 - чтобы получить информацию о производителе."
+      puts
 
       user_input = STDIN.gets.encode('UTF-8').chomp
       puts
@@ -70,6 +83,14 @@ class Main
         add_wagoon
       when '10'
         delete_wagoon
+      when '11'
+        set_manufacturer
+      when '12'
+        find_instance_train
+      when '13'
+        show_all_instance_stations
+      when '14'
+        show_manufacturer
       when 'q'
         break puts "Вы вышли из приложения!"
       else
@@ -166,7 +187,7 @@ private
       puts "Нет ни одного поезда!"
     else
       puts "Список поездов:"
-      @trains.each { |train| puts "Номер поезда: #{train.number} - тип: #{train.type}" }
+      @trains.each { |train| puts "Номер поезда: #{train.number} - тип: #{train.type} - производитель:#{train.company_name}" }
     end
   end
 
@@ -259,4 +280,63 @@ private
     @current_train = @trains.find { |train| train.number == number }
     @current_train.detach_wagoons
   end
+
+  def set_manufacturer
+    if @trains.size.zero?
+      puts "Нет ни одного поезда!"
+    elsif @trains.count > 0
+      puts "Какому поезду вы бы хотели присвоить имя производителя?"
+      index = 0
+      @trains.each do |train|
+        index +=1
+        puts "Поезд с номером: #{train.number} - тип поезда: #{train.type}"
+      end
+    end
+
+    puts "Введите номер поезда, только цифры:"
+    number = STDIN.gets.encode('UTF-8').to_i
+
+    train = @trains.find { |train| train.number == number }
+
+    puts "Введите название производителя:"
+    user_input = STDIN.gets.encode('UTF-8').chomp
+
+    train.company_name = user_input
+    show_manufacturer
+  end
+
+  def show_manufacturer
+    puts "Название производителя:"
+    @trains.each do |train|
+      puts "Номер поезда:#{train.number} - тип поезда:#{train.type} - производитель: #{train.company_name}"
+    end
+  end
+
+  def find_instance_train
+    if @trains.count > 0
+      puts "Какой поезд вы бы хотели найти?"
+      index = 0
+      @trains.each do |train|
+        index +=1
+        puts "Поезд с номером: #{train.number} - тип поезда: #{train.type}"
+      end
+    end
+
+    puts "Введите номер поезда, только цифры:"
+    number = STDIN.gets.encode('UTF-8').to_i
+    train = @trains.find { |train| train.number == number }
+
+    Train.find(train)
+
+  end
+
+  def show_all_instance_stations
+    if @stations.size.zero?
+      puts "Нет ни одного объекта станции!"
+    else
+      puts "Все объекты станции, которые созданны на данный момент."
+      puts Station.all
+    end
+  end
+
 end

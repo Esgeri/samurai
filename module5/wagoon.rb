@@ -1,5 +1,5 @@
 class Wagoon
-  include ManufacturerName
+  include Manufacturer
   attr_reader :type
 
   def initialize(type)
