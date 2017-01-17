@@ -1,15 +1,15 @@
-months = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-puts "Input day of number: "
+puts 'Input day of number: '
 day = gets.chomp.to_i
 
-puts "Input month: "
+puts 'Input month: '
 month = gets.chomp.to_i
 
-puts "Input year: "
+puts 'Input year: '
 year = gets.chomp.to_i
 
-months[1] = 29 if( year % 4 == 0 && year % 100 != 0 ) || ( year % 400 == 0 )
+months[1] = 29 if year % 4.zero? && year % 100 != 0 || year % 400.zero?
 
 date_number = 0
 

@@ -1,13 +1,11 @@
-alphabet = "a".."z"
+alphabet = 'a'..'z'
 
-vowels = %w[ a e i o u]
+vowels = %w(a e i o u)
 
 vowel_hash = {}
 
-alphabet.each_with_index do |key, value|  
-  if vowels.include?(key)
-    vowel_hash[key] = value + 1
-  end
+alphabet.each_with_index do |key, value|
+  vowel_hash[key] = value + 1 if vowels.include?(key)
 end
 
 puts vowel_hash
