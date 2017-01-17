@@ -1,8 +1,8 @@
-puts "Enter base of the triangle: "
+puts 'Enter base of the triangle: '
 
 a = gets.to_f
 
-puts "Enter height of the triangle: "
+puts 'Enter height of the triangle: '
 
 h = gets.to_f
 
