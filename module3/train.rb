@@ -1,23 +1,21 @@
-# Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов, 
-  # эти данные указываются при создании экземпляра класса
+# Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество вагонов,
+# эти данные указываются при создании экземпляра класса
 
 # Может набирать скорость
 # Может показывать текущую скорость
 # Может тормозить (сбрасывать скорость до нуля)
 
 # Может показывать количество вагонов
-# Может прицеплять/отцеплять вагоны (по одному вагону за операцию, 
-  # метод просто увеличивает или уменьшает количество вагонов). 
-  # Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
+# Может прицеплять/отцеплять вагоны (по одному вагону за операцию,
+# метод просто увеличивает или уменьшает количество вагонов).
+# Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
 
 # Может принимать маршрут следования (объект класса Route)
 # Может перемещаться между станциями, указанными в маршруте.
 # Показывать предыдущую станцию, текущую, следующую, на основе маршрута
 
-
 class Train
-	
-  attr_accessor :number, :type, :wagoons, :speed, :current_speed, :current_station, :route 
+  attr_accessor :number, :type, :wagoons, :speed, :current_speed, :current_station, :route
 
   def initialize(number, type, wagoons)
     @number = number
@@ -56,15 +54,15 @@ class Train
 
   def get_route(route)
     @route = route
-    puts "Train #{self.number} has route: #{@route.stations[0].station_name} - #{@route.stations[1].station_name}."
+    puts "Train #{number} has route: #{@route.stations[0].station_name} - #{@route.stations[1].station_name}."
   end
 
   def move_next_route
-    puts "Train #{self.number} move to next station: #{@route.stations[@current_station].station_name}" if @current_station += 1
+    puts "Train #{number} move to next station: #{@route.stations[@current_station].station_name}" if @current_station += 1
   end
 
   def move_previous_route
-    puts "Train #{self.number} move to previous station: #{@route.stations[@current_station].station_name}" if @current_station -= 1
+    puts "Train #{number} move to previous station: #{@route.stations[@current_station].station_name}" if @current_station -= 1
   end
 
   def current_station
@@ -80,5 +78,4 @@ class Train
     previous_station = @current_station - 1
     puts "The previous station: #{@route.stations[previous_station].station_name}"
   end
-
 end

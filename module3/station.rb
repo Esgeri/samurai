@@ -7,9 +7,7 @@
 
 # Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
 
-
 class Station
-  
   attr_accessor :station_name, :trains
 
   def initialize(station_name)
@@ -36,16 +34,15 @@ class Station
   end
 
   def count_train_by_type(train_type)
-    @trains.select{|train| train.type == train_type}.size
+    @trains.select { |train| train.type == train_type }.size
   end
 
   def dispatch_train(train)
-    if @trains.include? train 
+    if @trains.include? train
       puts "The train #{train.number} is dispatching...."
       @trains.delete(train)
     else
       puts "The train #{train.number} is not located on the station #{@station_name}."
     end
   end
-
 end
