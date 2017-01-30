@@ -1,6 +1,7 @@
 require_relative 'modules/instance_counter'
 require_relative 'modules/manufacturer'
 require_relative 'modules/validation'
+require_relative 'modules/accessor'
 require_relative 'station'
 require_relative 'route'
 require_relative 'train'
@@ -9,6 +10,7 @@ require_relative 'passenger_wagoon'
 require_relative 'cargo_wagoon'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
+require_relative 'test'
 
 class Main
   attr_accessor :stations, :trains, :wagoons, :route, :routes, :current_station
@@ -61,6 +63,7 @@ class Main
       puts '23 - найти инстанс поезд.'
       puts '24 - все инстанс станции.'
       puts '25 - чтобы получить информацию о производителе.'
+      puts '26 - тестирование метапрограммирования'
       puts
 
       puts 'Поле для ввода действия:'
@@ -142,6 +145,9 @@ class Main
       when '25'
         puts 'Секция показа, названия производителя.'
         show_manufacturer
+      when '26'
+        puts ' Метапрограммирование'
+        meta_programming
       when 'q'
         break puts 'Вы вышли из приложения!'
       else
@@ -576,4 +582,29 @@ class Main
       puts Station.all
     end
   end
+
+  def meta_programming
+    extend Accessor
+
+    puts "Accessor testing...."
+    test = Test.new
+    puts "Наш объект для теста: #{test}"
+
+    puts 'define_method _history с пустым значением'
+    puts "parameter_a_history #{test.parameter_a_history.inspect}"
+    puts "parameter_b_history #{test.parameter_b_history.inspect}"
+    puts "parameter_c_history #{test.parameter_c_history.inspect}"
+
+    puts 'Проверка define_method _history'
+    puts "parameter_a #{test.parameter_a = rand(1..10)}"
+    test.instance_variable_get(:@attribute)
+    puts "parameter_b #{test.parameter_b = rand(1..10)}"
+    test.instance_variable_get(:@attribute)
+    puts "parameter_c #{test.parameter_c = rand(1..10)}"
+    test.instance_variable_get(:@attribute)
+
+    puts "Пустой class_variables: #{Test.class_variables}"
+    puts  "Весь объект: #{test.inspect}"
+
+    end
 end

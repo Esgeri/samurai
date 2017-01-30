@@ -1,21 +1,49 @@
 module Validation
-  def validate(validation_name, validation_format, validation_type)
-    validation_name = "@#{validation_name}".to_s
+  def self.included(base)
+    base.extend ClassMethods
+    base.include InstanceMethods
+  end
 
-    if validation_name == :presence
-      instance_variable_get(validation_name).nil?
-    elsif validation_format == :format
-      instance_variable_get(validation_format) =~ /A-Z{0,3}/
-    elsif validation_type == :type
-      instance_variable_get(validation_type).station, :type, Station
+  module ClassMethods
+    attr_accessor :params
+
+    def validate(attribute, type, option = nil)
+      @params ||= [] << {attribute: attribute, type: type, option: option}
     end
   end
 
-  def validate!
-    p 'validate!'
+  module InstanceMethods
+    def valid?
+      validate!
+      true
+    rescue
+      false
+    end
+
+    def validate!
+      self.class.params.each do |param|
+        if param[:type] == :presence
+          valid_presence(param[:attribute])
+        elsif param[:type] == :format
+          valid_format(param[:attribute], param[:option])
+        elsif param[:type] == :type
+          valid_type(param[:attribute], param[:option])
+        end
+      end
+    end
   end
 
-  def valid?
-    p 'valid?'
+protected
+  def valid_presence(attribute)
+    raise "Пустое значение" if attribute.nil? || attribute.eql?('')
   end
+
+  def valid_format(attribute, format)
+    raise "Формат не валидный" unless attribute =~ format
+  end
+
+  def valid_type(attribute, type)
+    raise "Неправильный тип" unless attribute.is_a?(type)
+  end
+
 end

@@ -1,4 +1,5 @@
 class Route
+  extend Accessor
   attr_accessor :stations, :route_number
 
   def initialize(start_point, end_point)

@@ -1,5 +1,10 @@
 class Station
+  extend Accessor
+  include Validation
+
   attr_accessor :station_name, :trains
+
+  validate :station_name, :presence
 
   @@stations = []
 
@@ -49,18 +54,5 @@ class Station
 
   def block
     @trains.each { |train| yield(train) }
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
-  end
-
-  protected
-
-  def validate!
-    raise 'Название станции не может быть пустым!' if station_name.nil?
-    raise 'Название станции имеет не правильный формат!' if station_name !~ STATION_NAME
   end
 end

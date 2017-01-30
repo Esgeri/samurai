@@ -1,7 +1,12 @@
 class Train
+  extend Accessor
   include Manufacturer
+  include Validation
 
   attr_accessor :train_name, :type, :wagoons, :speed, :current_station, :route, :stations
+
+  validate :train_name, :presence
+  validate :train_name, :format, :NAME_FORMAT
 
   @@trains = {}
 

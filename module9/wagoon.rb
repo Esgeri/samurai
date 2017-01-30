@@ -4,8 +4,8 @@ class Wagoon
   extend Validation
 
   attr_reader :type, :wagoon
-  attr_accessor_with_history :color
-  strong_attr_accessor :title, String
+  # attr_accessor_with_history :color
+  # strong_attr_accessor :title, String
 
   def initialize(wagoon, type)
     @type = type
