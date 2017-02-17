@@ -1,22 +1,23 @@
 class Train
-  extend Accessor
+  include Accessor
   include Manufacturer
+  include InstanceCounter
   include Validation
-
-  attr_accessor :train_name, :type, :wagoons, :speed, :current_station, :route, :stations
-
-  validate :train_name, :presence
-  validate :train_name, :format, :NAME_FORMAT
-
-  @@trains = {}
 
   NAME_FORMAT = /^[a-zа-я]|\d+$/i
   TRAIN_TYPE = /^cargo$|^passenger$/i
 
+  attr_accessor :train_name, :type, :wagoons, :speed, :current_station, :route, :stations
+
+  validate :train_name, :valid_presence
+  validate :train_name, :valid_format, :NAME_FORMAT
+
+  @@trains = {}
+
   def initialize(train_name, type)
     @train_name = train_name
     @type = type
-    validate!
+    # validate!
     @wagoons = []
     @speed = 0.0
     @current_station = 0
@@ -95,21 +96,5 @@ class Train
     @wagoons.each do |wagoon|
       yield(wagoon)
     end
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
-  end
-
-  protected
-
-  def validate!
-    raise 'Номер не может быть пустым!' if train_name.nil?
-    raise 'Номер имеет не правильный формат!' if train_name !~ NAME_FORMAT
-    raise 'Тип поезда не может быть пустым!' if type.nil?
-    raise 'Не совпадение типа поездов!' if type !~ TRAIN_TYPE
-    true
   end
 end

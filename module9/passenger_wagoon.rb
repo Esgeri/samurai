@@ -1,8 +1,8 @@
 class Passenger_wagoon < Wagoon
-  attr_accessor :place_count, :empty_place
+  attr_accessor :place_count, :busy_place
 
   def initialize(wagoon, place_count)
-    @wagoon = wagoon
+    # @wagoon = wagoon
     super(wagoon, 'passenger')
     @place_count = place_count
     @busy_place = 0
@@ -18,9 +18,5 @@ class Passenger_wagoon < Wagoon
 
   def show_free_place
     @place_count - @busy_place
-  end
-
-  def to_s
-    "Номер вагона #{@wagoon}, занятые места #{show_busy_place}, свободные места #{show_free_place}"
   end
 end

@@ -1,20 +1,20 @@
 class Station
-  extend Accessor
   include Validation
-
-  attr_accessor :station_name, :trains
-
-  validate :station_name, :presence
-
-  @@stations = []
 
   STATION_NAME = /^[a-zа-я]|\d+$/i
 
+  attr_accessor :station_name, :trains
+
+  validate :station_name, :valid_presence
+  validate :station_name, :valid_format, :STATION_NAME
+
+  @@stations = []
+
   def initialize(station_name)
     @station_name = station_name
-    validate!
     @trains = []
     @@stations << self
+    # validate!
   end
 
   def self.all

@@ -7,8 +7,9 @@ module Validation
   module ClassMethods
     attr_accessor :params
 
-    def validate(attribute, type, option = nil)
-      @params ||= [] << {attribute: attribute, type: type, option: option}
+    def validate(name, type, option = nil)
+      self.params ||= []
+      params << { name: name, type: type, option: option }
     end
   end
 
@@ -22,28 +23,24 @@ module Validation
 
     def validate!
       self.class.params.each do |param|
-        if param[:type] == :presence
-          valid_presence(param[:attribute])
-        elsif param[:type] == :format
-          valid_format(param[:attribute], param[:option])
-        elsif param[:type] == :type
-          valid_type(param[:attribute], param[:option])
-        end
+        value = instance_variable_get("@#{param[:name]}")
+        method = "#{param[:type]}.to_s"
+        send(method, value, param[:option])
       end
     end
   end
 
-protected
+  private
+
   def valid_presence(attribute)
-    raise "Пустое значение" if attribute.nil? || attribute.eql?('')
+    raise ArgumentError, 'Значение не должно быть пустым!' if attribute.nil? || attribute.eql?('')
   end
 
   def valid_format(attribute, format)
-    raise "Формат не валидный" unless attribute =~ format
+    raise ArgumentError, 'Значение не соответствует формату!' if attribute !~ format
   end
 
   def valid_type(attribute, type)
-    raise "Неправильный тип" unless attribute.is_a?(type)
+    raise TypeError, 'Не соответствие типа!' unless attribute.is_a?(type)
   end
-
 end

@@ -34,35 +34,20 @@ class Main
       puts
       puts "Нажмите на букву: \'q\' - чтобы выйти из приложения."
       puts 'I. Секция: Создания объектов. Введите в консоль:'
-      puts '1 - чтобы создать станцию.'
-      puts '2 - чтобы создать поезд.'
-      puts '3 - чтобы создать маршрут (начальные и конечные станции маршрута).'
+      puts '1 - чтобы создать станцию. 2 - чтобы создать поезд. 3 - чтобы создать маршрут (начальные и конечные станции маршрута).'
       puts 'II. Секция. Показать списки. Введите в консоль:'
-      puts '4 - показть станции.'
-      puts '5 - показать поезда.'
-      puts '6 - показть поезда на станциях.'
+      puts '4 - показть станции. 5 - показать поезда. 6 - показть поезда на станциях.'
       puts '7 - показать маршруты (с начальными и конечными станциями).'
-      puts 'III. Секция. Нахождения поездов на станции и манипуляции ими (вагоны, маршруты, поезда, скорость).'
-      puts 'Введите в консоль:'
-      puts '8 - расместить поезд на станцию, чтобы начать маршрут.'
-      puts '9 - дислокация поезда со станции.'
-      puts '10 - добавить станцию на маршрут.'
-      puts '11 - удалить станцию из маршрута.'
-      puts '12 - показать следующую станцию на маршруте.'
-      puts '13 - показать предыдущую станцию на маршруте.'
-      puts '14 - показать текущию станцию на маршруте.'
-      puts '15 - дать старт / разогнать поезд.'
-      puts '16 - текущий скорость поезда.'
-      puts '17 - остановить поезд.'
-      puts '18 - прицепить вагон.'
-      puts '19 - отцепить вагон.'
-      puts '20 - выбор направления движения на следующую станцию'
-      puts '21 - выбор направления движения на предыдущую станцию'
-      puts 'IV. Секция. Информация о производителе поездов. Введите в консоль:'
-      puts '22 - присвоить имя производителя к поездам.'
-      puts '23 - найти инстанс поезд.'
-      puts '24 - все инстанс станции.'
-      puts '25 - чтобы получить информацию о производителе.'
+      puts 'III. Секция. Нахождения поездов на станции и манипуляции ими (вагоны, маршруты, поезда, скорость). Введите в консоль:'
+      puts '8 - расместить поезд на станцию, чтобы начать маршрут. 9 - дислокация поезда со станции. 10 - добавить станцию на маршрут.'
+      puts '11 - удалить станцию из маршрута. 12 - показать следующую станцию на маршруте. 13 - показать предыдущую станцию на маршруте.'
+      puts '14 - показать текущию станцию на маршруте. 15 - дать старт / разогнать поезд. 16 - текущий скорость поезда.'
+      puts '17 - остановить поезд. 18 - прицепить вагон. 19 - отцепить вагон.'
+      puts '20 - выбор направления движения на следующую станцию. 21 - выбор направления движения на предыдущую станцию'
+      puts 'IV. Секция. Информация о производителе поездов. И об инстанс переменных. Введите в консоль:'
+      puts '22 - присвоить имя производителя к поездам. 23 - найти инстанс поезд.'
+      puts '24 - все инстанс станции. 25 - чтобы получить информацию о производителе.'
+      puts 'VI. Секция. О метапрограммирование'
       puts '26 - тестирование метапрограммирования'
       puts
 
@@ -321,7 +306,7 @@ class Main
       puts 'Введите общее количество объема грузового вагона:'
       general_volume = STDIN.gets.encode('UTF-8').to_i
       wagoon = Cargo_wagoon.new(wagoon_number, general_volume)
-      @current_train.hook_wagoons(wagoon)
+      # @current_train.hook_wagoons(wagoon)
       @wagoons_base[wagoon_number] = wagoon
     elsif user_input == 2
       puts 'Введите номер вагона:'
@@ -329,10 +314,10 @@ class Main
       puts 'Введите общее количество мест пассажирского вагона:'
       place_count = STDIN.gets.encode('UTF-8').to_i
       wagoon = Passenger_wagoon.new(wagoon_number, place_count)
-      @current_train.hook_wagoons(wagoon)
+      # @current_train.hook_wagoons(wagoon)
       @wagoons_base[wagoon_number] = wagoon
     end
-    # @current_train.hook_wagoons(wagoon)
+    @current_train.hook_wagoons(wagoon)
   end
 
   def delete_wagoon
@@ -584,27 +569,38 @@ class Main
   end
 
   def meta_programming
-    extend Accessor
-
-    puts "Accessor testing...."
     test = Test.new
-    puts "Наш объект для теста: #{test}"
 
-    puts 'define_method _history с пустым значением'
-    puts "parameter_a_history #{test.parameter_a_history.inspect}"
-    puts "parameter_b_history #{test.parameter_b_history.inspect}"
-    puts "parameter_c_history #{test.parameter_c_history.inspect}"
+    test.attribute_a
+    puts test.attribute_a_history.inspect
 
-    puts 'Проверка define_method _history'
-    puts "parameter_a #{test.parameter_a = rand(1..10)}"
-    test.instance_variable_get(:@attribute)
-    puts "parameter_b #{test.parameter_b = rand(1..10)}"
-    test.instance_variable_get(:@attribute)
-    puts "parameter_c #{test.parameter_c = rand(1..10)}"
-    test.instance_variable_get(:@attribute)
+    test.attribute_a = 'Vasya'
+    puts test.attribute_a_history.inspect
 
-    puts "Пустой class_variables: #{Test.class_variables}"
-    puts  "Весь объект: #{test.inspect}"
+    test.attribute_a = 'Petya'
+    puts test.attribute_a_history.inspect
 
-    end
+    puts '-' * 100
+
+    test.attribute_b = 5
+    puts test.attribute_b_history.inspect
+    test.attribute_b = [1, 2, 3, 4, 5]
+    puts test.attribute_b_history.inspect
+    test.attribute_b = 'attribute b'
+    puts test.attribute_b_history.inspect
+
+    puts '-' * 100
+
+    test.attribute_c = nil
+    puts test.attribute_c_history.inspect
+    test.attribute_c = 'attribute c'
+    puts test.attribute_c_history.inspect
+    test.attribute_c = %w(Ruby meta programming test)
+    puts test.attribute_c_history.inspect
+    test.attribute_c = rand(0..100)
+    puts test.attribute_c_history.inspect
+
+    puts '-' * 100
+    puts "Instance variables: #{test.instance_variables}"
+  end
 end
