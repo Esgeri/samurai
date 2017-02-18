@@ -306,7 +306,6 @@ class Main
       puts 'Введите общее количество объема грузового вагона:'
       general_volume = STDIN.gets.encode('UTF-8').to_i
       wagoon = Cargo_wagoon.new(wagoon_number, general_volume)
-      # @current_train.hook_wagoons(wagoon)
       @wagoons_base[wagoon_number] = wagoon
     elsif user_input == 2
       puts 'Введите номер вагона:'
@@ -314,7 +313,6 @@ class Main
       puts 'Введите общее количество мест пассажирского вагона:'
       place_count = STDIN.gets.encode('UTF-8').to_i
       wagoon = Passenger_wagoon.new(wagoon_number, place_count)
-      # @current_train.hook_wagoons(wagoon)
       @wagoons_base[wagoon_number] = wagoon
     end
     @current_train.hook_wagoons(wagoon)

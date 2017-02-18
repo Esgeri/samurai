@@ -24,8 +24,8 @@ module Validation
     def validate!
       self.class.params.each do |param|
         value = instance_variable_get("@#{param[:name]}")
-        method = "#{param[:type]}"
-        send(method, value, param[:option])
+        method = param[:type]
+        send(value, method, param[:option])
       end
     end
 
@@ -33,17 +33,14 @@ module Validation
 
     def presence(name, value)
       raise 'Значение не должно быть пустым!' if name.nil? || name.eql?('')
-      true
     end
 
     def format(name, format)
       raise "Значение не соответствует формату!" unless name =~ format
-      true
     end
 
     def type(name, type)
       raise "Не соответствие типа!" unless name.is_a?(type)
-      true
     end
   end
 end
