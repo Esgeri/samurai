@@ -601,6 +601,9 @@ class Main
     puts test.attribute_c_history.inspect
 
     puts '-' * 100
+    puts "Strong attribute accessor"
+    test.strong_attribute = "string"
+    puts test.instance_variable_get(:@strong_attribute)
     puts "Instance variables: #{test.instance_variables}"
   end
 end

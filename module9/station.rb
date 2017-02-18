@@ -5,8 +5,7 @@ class Station
 
   attr_accessor :station_name, :trains
 
-  validate :station_name, :valid_presence
-  validate :station_name, :valid_format, :STATION_NAME
+  validate :station_name, :presence
 
   @@stations = []
 
@@ -14,7 +13,7 @@ class Station
     @station_name = station_name
     @trains = []
     @@stations << self
-    # validate!
+    validate!
   end
 
   def self.all

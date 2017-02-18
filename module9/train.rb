@@ -9,8 +9,8 @@ class Train
 
   attr_accessor :train_name, :type, :wagoons, :speed, :current_station, :route, :stations
 
-  validate :train_name, :valid_presence
-  validate :train_name, :valid_format, :NAME_FORMAT
+  validate :train_name, :presence
+  validate :train_name, :format
 
   @@trains = {}
 

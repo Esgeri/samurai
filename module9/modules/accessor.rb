@@ -1,7 +1,6 @@
 module Accessor
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
   end
 
   module ClassMethods
@@ -25,9 +24,7 @@ module Accessor
         end
       end
     end
-  end
 
-  module InstanceMethods
     def strong_attr_accessor(attribute, class_name)
       var_attribute = "@#{attribute}".to_sym
 
@@ -35,7 +32,7 @@ module Accessor
         instance_variable_get(var_attribute)
       end
 
-      define_method("#{attribute}.to_s") do |value|
+      define_method("#{attribute}=") do |value|
         raise TypeError, 'Не соответствие типа!' if value.class != class_name
         instance_variable_set(var_attribute, value)
       end

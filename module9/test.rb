@@ -4,6 +4,7 @@ class Test
   include Accessor
 
   attr_accessor_with_history :attribute_a, :attribute_b, :attribute_c
+  strong_attr_accessor :strong_attribute, String
 end
 
 test = Test.new
@@ -38,4 +39,7 @@ test.attribute_c = rand(0..100)
 puts test.attribute_c_history.inspect
 
 puts '-' * 100
+puts "Strong attribute accessor"
+test.strong_attribute = "string"
+puts test.instance_variable_get(:@strong_attribute)
 puts "Instance variables: #{test.instance_variables}"

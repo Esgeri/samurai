@@ -1,6 +1,6 @@
 class Cargo < Train
-  validate :number, :valid_presence
-  validate :number, :valid_format, :NUMBER_FORMAT
+  validate :train_name, :presence
+  validate :train_name, :format
 
   def initialize(number, _type)
     super(number, 'cargo')

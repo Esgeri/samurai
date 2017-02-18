@@ -2,7 +2,6 @@ class Cargo_wagoon < Wagoon
   attr_accessor :general_volume, :loaded_volume
 
   def initialize(wagoon, general_volume)
-    # @wagoon = wagoon
     super(wagoon, 'cargo')
     @general_volume = general_volume
     @loaded_volume = 0

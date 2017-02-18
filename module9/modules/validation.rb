@@ -17,30 +17,33 @@ module Validation
     def valid?
       validate!
       true
-    rescue
+    rescue StandartError
       false
     end
 
     def validate!
       self.class.params.each do |param|
         value = instance_variable_get("@#{param[:name]}")
-        method = "#{param[:type]}.to_s"
+        method = "#{param[:type]}"
         send(method, value, param[:option])
       end
     end
-  end
 
-  private
+    private
 
-  def valid_presence(attribute)
-    raise ArgumentError, 'Значение не должно быть пустым!' if attribute.nil? || attribute.eql?('')
-  end
+    def presence(name, value)
+      raise 'Значение не должно быть пустым!' if name.nil? || name.eql?('')
+      true
+    end
 
-  def valid_format(attribute, format)
-    raise ArgumentError, 'Значение не соответствует формату!' if attribute !~ format
-  end
+    def format(name, format)
+      raise "Значение не соответствует формату!" unless name =~ format
+      true
+    end
 
-  def valid_type(attribute, type)
-    raise TypeError, 'Не соответствие типа!' unless attribute.is_a?(type)
+    def type(name, type)
+      raise "Не соответствие типа!" unless name.is_a?(type)
+      true
+    end
   end
 end
